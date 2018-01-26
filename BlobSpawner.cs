@@ -25,6 +25,11 @@ public class BlobSpawner : MonoBehaviour {
 			timeLeftBeforeSpawn = timeBetweenSpawn;
 		}
 	}
+
+	public List<GameObject> GetPuyoList()
+	{
+		return puyoList;
+	}
 	
 	
 }
