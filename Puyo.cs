@@ -27,6 +27,8 @@ public class Puyo : MonoBehaviour
 		debugDisplay.text = randomKey.ToString();
 	}
 	
+	
+	
 	// Update is called once per frame
 	void Update () {
 		

@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class BlobSpawner : MonoBehaviour {
 
-	public float timeLeftBeforeSpawn;
 	public float timeBetweenSpawn;
+	public GameObject puyoGameObject;
+	
+	private float timeLeftBeforeSpawn;
 
 	private List<GameObject> puyoList;
 
@@ -15,12 +17,14 @@ public class BlobSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		timeLeftBeforeSpawn -= Time.deltaTime;
+
 		if (timeLeftBeforeSpawn <= 0) {
-			GameObject puyo = new GameObject ();
+			var puyo = Instantiate(puyoGameObject, transform);
 			puyoList.Add (puyo);
 			timeLeftBeforeSpawn = timeBetweenSpawn;
 		}
 	}
+	
+	
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = System.Random;
 
 namespace SeriousSwag3.Utils
@@ -21,7 +19,7 @@ namespace SeriousSwag3.Utils
 
         public static string GetRandomColor()
         {
-            var randomInt = new Random().Next(0, 2);
+            var randomInt = new Random().Next(0, listColors.Length);
             return listColors[randomInt];
 
         }
