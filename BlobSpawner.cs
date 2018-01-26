@@ -8,20 +8,20 @@ public class BlobSpawner : MonoBehaviour {
 	
 	private float timeLeftBeforeSpawn;
 
-	List<GameObject> blobList;
+	private List<GameObject> puyoList;
 
 	// Use this for initialization
 	void Start () {
-		blobList = new List<GameObject> ();
+		puyoList = new List<GameObject> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		timeLeftBeforeSpawn -= Time.deltaTime;
-		if (timeLeftBeforeSpawn <= 0)
-		{
-			var blob = Instantiate(puyoGameObject, transform);
-			blobList.Add (blob);
+
+		if (timeLeftBeforeSpawn <= 0) {
+			var puyo = Instantiate(puyoGameObject, transform);
+			puyoList.Add (puyo);
 			timeLeftBeforeSpawn = timeBetweenSpawn;
 		}
 	}
