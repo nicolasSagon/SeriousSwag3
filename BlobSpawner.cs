@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BlobSpawner : MonoBehaviour {
@@ -7,11 +6,11 @@ public class BlobSpawner : MonoBehaviour {
 	public float timeLeftBeforeSpawn;
 	public float timeBetweenSpawn;
 
-	List<GameObject> blobList;
+	private List<GameObject> puyoList;
 
 	// Use this for initialization
 	void Start () {
-		blobList = new List<GameObject> ();
+		puyoList = new List<GameObject> ();
 	}
 	
 	// Update is called once per frame
@@ -19,10 +18,9 @@ public class BlobSpawner : MonoBehaviour {
 
 		timeLeftBeforeSpawn -= Time.deltaTime;
 		if (timeLeftBeforeSpawn <= 0) {
-			GameObject blob = new GameObject ();
-			blobList.Add (blob);
+			GameObject puyo = new GameObject ();
+			puyoList.Add (puyo);
 			timeLeftBeforeSpawn = timeBetweenSpawn;
 		}
-		//Debug.Log(blobList.Count.ToString());
 	}
 }
