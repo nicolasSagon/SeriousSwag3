@@ -7,6 +7,7 @@ public class Puyo : MonoBehaviour
 
 	public Material Material;
 	public Text debugDisplay;
+	private bool isOnGround;
 
 	public char randomKey;
 
@@ -27,8 +28,11 @@ public class Puyo : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 	}
 
-	
+	void OnTriggerEnter(Collider ground)
+	{
+		isOnGround = true;
+	}
 }
