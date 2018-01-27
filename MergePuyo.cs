@@ -28,10 +28,10 @@ public class MergePuyo : MonoBehaviour
 		puyoList.Add(puyo2);
 
 		mergedPuyo = mergePuyo(puyoList);
-		destroyPuyoOnGroundList();
+		//destroyPuyoOnGroundList();
 
 		Debug.Log(mergedPuyo.ToString());
-*/ 
+ */
 	}
 	
 	// Update is called once per frame
