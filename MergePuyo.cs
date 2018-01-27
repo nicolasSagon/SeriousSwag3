@@ -67,6 +67,10 @@ public class MergePuyo : MonoBehaviour
 		{
 			mergedPuyoSize += puyo.transform.localScale;
 		}
+
+		mergedPuyoSize.x = Mathf.Sqrt(mergedPuyoSize.x);
+		mergedPuyoSize.y = Mathf.Sqrt(mergedPuyoSize.y);
+		mergedPuyoSize.z = Mathf.Sqrt(mergedPuyoSize.z);
 		
 		return mergedPuyoSize;
 	}

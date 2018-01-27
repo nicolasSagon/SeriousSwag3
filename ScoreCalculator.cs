@@ -13,9 +13,9 @@ public class ScoreCalculator : MonoBehaviour {
 		GameObject puyo2 = Instantiate(input);
 		
 		puyo1.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#66f2ae");
-		puyo2.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#51c18b");
+		puyo2.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#51C18B");
 		puyo1.transform.localScale=Vector3.one*5;
-		puyo2.transform.localScale = Vector3.one*3;
+		puyo2.transform.localScale = Vector3.one*5;
 
 		int score = scoreCalc(puyo1, puyo2);
 		Debug.Log("score = " + score + "%");
