@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
 		INIT_COUNTDOWN,
 		START,
 		FINISHED,
-		END
+		END,
+		SCORE
 	}
 
 	private void Awake()
@@ -51,6 +52,10 @@ public class GameManager : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+		if (_mergedPuyo != null)
+		{
+			_mergedPuyo.GetComponent<Puyo>().ChangeColor(_color);
+		}
 		if (!isStart)
 		{
 			_time += Time.deltaTime;
@@ -84,10 +89,13 @@ public class GameManager : MonoBehaviour
 				{
 					checkKeyboard();
 				}
-				if (_mergedPuyo != null)
+				else
 				{
-					_mergedPuyo.GetComponent<Puyo>().ChangeColor(_color);	
+					currentState = GameState.SCORE;
 				}
+				break;
+			case GameState.SCORE:
+				displayMessage("YOU HAVE WIN WITH 100% GG");
 				break;
 		}
 	}
@@ -101,10 +109,11 @@ public class GameManager : MonoBehaviour
 	void stopGame()
 	{
 		isCompletlyStop = true;
-		var puyoToInstance = mergePuyo(blobSpawner.GetPuyoList());
-		puyoToInstance.transform.position = new Vector3(9, -3, 0);
-		var rigidbody2D = puyoToInstance.GetComponent<Rigidbody2D>();
+		mergePuyo(blobSpawner.GetPuyoList());
+		_mergedPuyo.transform.position = new Vector3(9, -3, 0);
+		var rigidbody2D = _mergedPuyo.GetComponent<Rigidbody2D>();
 		rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+		
 		clearPuyoList(blobSpawner.GetPuyoList());
 	}
 
@@ -157,13 +166,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 	
-	GameObject mergePuyo(List<GameObject> puyoOnGroundList)
+	void mergePuyo(List<GameObject> puyoOnGroundList)
 	{
 		_mergedPuyo = Instantiate(blobSpawner.puyoGameObject);
 		_mergedPuyo.transform.localScale = mergeSize(puyoOnGroundList);
 		_color = mergeColor(puyoOnGroundList);
-
-		return _mergedPuyo;
 	}
 	
 	Color mergeColor(List<GameObject> puyoOnGroundList)
