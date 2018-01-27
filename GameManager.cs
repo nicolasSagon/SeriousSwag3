@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +21,8 @@ public class GameManager : MonoBehaviour
 	{
 		INIT,
 		START,
-		FINISHED
+		FINISHED,
+		END
 	}
 	
 	// Use this for initialization
@@ -52,6 +54,9 @@ public class GameManager : MonoBehaviour
 				updateGameTimer();
 				break;
 			case GameState.FINISHED:
+				stopGame();
+				break;
+			case GameState.END:
 				break;
 		}
 	}
@@ -60,6 +65,14 @@ public class GameManager : MonoBehaviour
 	{
 		blobSpawner.isStart = true;
 		currentState = GameState.START;
+	}
+
+	void stopGame()
+	{
+		var puyoToInstance = mergePuyo(blobSpawner.getOnGroundList());
+		puyoToInstance.transform.position = new Vector3(9, -3, 0);
+		puyoToInstance.GetComponent<Rigidbody2D>().mass = 0;
+		currentState = GameState.END;
 	}
 
 	void displayMessage(string message)
@@ -109,5 +122,38 @@ public class GameManager : MonoBehaviour
 				puyoList.Remove(puyo);
 			}
 		}
+	}
+	
+	GameObject mergePuyo(List<GameObject> puyoOnGroundList)
+	{
+		var mergedPuyo = Instantiate(blobSpawner.puyoGameObject);
+		mergedPuyo.transform.localScale = mergeSize(puyoOnGroundList);
+		mergedPuyo.GetComponent<Puyo>().ChangeColor(mergeColor(puyoOnGroundList));
+
+		return mergedPuyo;
+	}
+	
+	Color mergeColor(List<GameObject> puyoOnGroundList)
+	{
+		Color mergedPuyoColor = new Color();
+		foreach (var puyo in puyoOnGroundList)
+		{
+			mergedPuyoColor += puyo.GetComponent<Puyo>().colorValue;
+		}
+
+		mergedPuyoColor /= puyoOnGroundList.Count;
+		
+		return mergedPuyoColor;
+	}
+	
+	Vector3 mergeSize(List<GameObject> puyoOnGroundList)
+	{
+		Vector3 mergedPuyoSize = new Vector3();
+		foreach (var puyo in puyoOnGroundList)
+		{
+			mergedPuyoSize += puyo.transform.localScale;
+		}
+		
+		return mergedPuyoSize;
 	}
 }

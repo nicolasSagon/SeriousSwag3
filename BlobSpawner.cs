@@ -19,6 +19,7 @@ public class BlobSpawner : MonoBehaviour {
 	private float timeLeftBeforeSpawn;
 
 	private List<GameObject> puyoList;
+	private List<GameObject> puyoOnGroundList;
 
 	public bool isStart;
 
@@ -31,6 +32,7 @@ public class BlobSpawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		puyoList = new List<GameObject> ();
+		puyoOnGroundList = new List<GameObject>();
 
 		xMin = (int) (transform.localPosition.x - transform.localScale.x / 2);
 		xMax = (int) (transform.localPosition.x + transform.localScale.x / 2);
@@ -81,6 +83,17 @@ public class BlobSpawner : MonoBehaviour {
 	public List<GameObject> GetPuyoList()
 	{
 		return puyoList;
+	}
+	
+	public List<GameObject> getOnGroundList()
+	{
+		foreach (var puyo in puyoList)
+		{
+			if (puyo.GetComponent<Puyo>().isOnGround)
+				puyoOnGroundList.Add(puyo);
+		}
+
+		return puyoOnGroundList;
 	}
 	
 }
