@@ -109,10 +109,6 @@ public class GameManager : MonoBehaviour
 				break;
 			case GameState.SCORE:
 				displayScore();
-				Debug.Log("mergedcolor: " + _mergedPuyo.GetComponent<Puyo>().colorValue);
-				Debug.Log("mergedsize: " + _mergedPuyo.transform.localScale);
-				Debug.Log("goalcolor: " + _goalPuyo.GetComponent<Puyo>().colorValue);
-				Debug.Log("goalsize: " + _goalPuyo.transform.localScale);
 				currentState = GameState.TRUE_END;
 				break;
 			case GameState.TRUE_END:
@@ -219,6 +215,10 @@ public class GameManager : MonoBehaviour
 		{
 			mergedPuyoSize += puyo.transform.localScale;
 		}
+		
+		mergedPuyoSize.x = Mathf.Sqrt(mergedPuyoSize.x);
+		mergedPuyoSize.y = Mathf.Sqrt(mergedPuyoSize.y);
+		mergedPuyoSize.z = Mathf.Sqrt(mergedPuyoSize.z);
 		
 		return mergedPuyoSize;
 	}
