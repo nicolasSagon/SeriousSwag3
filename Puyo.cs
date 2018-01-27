@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class Puyo : MonoBehaviour
 {
-
-	public Material Material;
 	public Text debugDisplay;
 	public bool isOnGround;
 
@@ -20,11 +18,10 @@ public class Puyo : MonoBehaviour
 		randomKey = KeyGenerator.GetRandomKey();
 		colorValue = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
 		
-		Material.color = colorValue;
+		var rend = GetComponent<Renderer>();
+		rend.material.color = colorValue;
 		debugDisplay.text = randomKey.ToString();
 	}
-	
-	
 	
 	// Update is called once per frame
 	void Update () {
@@ -33,6 +30,9 @@ public class Puyo : MonoBehaviour
 
 	void OnTriggerEnter(Collider ground)
 	{
-		isOnGround = true;
+		if (ground.CompareTag("Ground"))
+		{
+			isOnGround = true;	
+		}
 	}
 }
