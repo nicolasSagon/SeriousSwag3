@@ -13,7 +13,7 @@ public class ScoreCalculator : MonoBehaviour {
 		GameObject puyo2 = Instantiate(input);
 		
 		puyo1.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#66f2ae");
-		puyo2.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#51C18B");
+		puyo2.GetComponent<Puyo>().colorValue = ColorGenerator.GetColorFromHex("#51c18b");
 		puyo1.transform.localScale=Vector3.one*5;
 		puyo2.transform.localScale = Vector3.one*3;
 
@@ -56,7 +56,6 @@ public class ScoreCalculator : MonoBehaviour {
 	float sizeDeltaCalc(Vector3 v1, Vector3 v2)
 	{
 		float sizeDelta = 1 - Mathf.Min(v1.x, v2.x)/Mathf.Max(v1.x, v2.x);
-		Debug.Log("sizeDelta = " + sizeDelta);
 		return sizeDelta;
 	}
 }
