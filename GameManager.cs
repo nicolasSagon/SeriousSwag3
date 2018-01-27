@@ -19,10 +19,12 @@ public class GameManager : MonoBehaviour
 	private float _time;
 	private Color _color;
 	private GameObject _mergedPuyo;
+	private GameObject _goalPuyo;
 
 	enum GameState
 	{
 		INIT,
+		INIT_COUNTDOWN,
 		START,
 		FINISHED,
 		END
@@ -37,6 +39,14 @@ public class GameManager : MonoBehaviour
 	void Start ()
 	{
 		blobSpawner = GetComponent<BlobSpawner>();	
+	}
+
+	private void chooseGoalPuyoAndSpawn()
+	{
+		var goalPuyoFactory = new GoalPuyo(Instantiate(blobSpawner.puyoGameObject));
+		_goalPuyo = goalPuyoFactory.GetGoalPuyo();
+		_goalPuyo.transform.position = new Vector3(-9, -2, 0);
+		currentState = GameState.INIT_COUNTDOWN;
 	}
 	
 	// Update is called once per frame
@@ -56,6 +66,9 @@ public class GameManager : MonoBehaviour
 		switch (currentState)
 		{
 			case GameState.INIT:
+				chooseGoalPuyoAndSpawn();
+				break;
+			case GameState.INIT_COUNTDOWN:
 				break;
 			case GameState.START:
 				checkKeyboard();
@@ -88,11 +101,11 @@ public class GameManager : MonoBehaviour
 	void stopGame()
 	{
 		isCompletlyStop = true;
-		var puyoToInstance = mergePuyo(blobSpawner.getOnGroundList());
+		var puyoToInstance = mergePuyo(blobSpawner.GetPuyoList());
 		puyoToInstance.transform.position = new Vector3(9, -3, 0);
 		var rigidbody2D = puyoToInstance.GetComponent<Rigidbody2D>();
 		rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
-		
+		clearPuyoList(blobSpawner.GetPuyoList());
 	}
 
 	void displayMessage(string message)
@@ -175,5 +188,11 @@ public class GameManager : MonoBehaviour
 		}
 		
 		return mergedPuyoSize;
+	}
+
+	private void clearPuyoList(List<GameObject> puyoList)
+	{
+		puyoList.ForEach(Destroy);
+		puyoList.Clear();
 	}
 }

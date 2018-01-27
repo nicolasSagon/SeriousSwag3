@@ -5,7 +5,7 @@ using SeriousSwag3.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GoalPuyo : MonoBehaviour {
+public class GoalPuyo{
 
 	public GameObject goalPuyo;
 	public int minSize = 4;
@@ -13,22 +13,16 @@ public class GoalPuyo : MonoBehaviour {
 	
 	public GameObject input;
 	public Color color;
-	
-	// Use this for initialization
-	void Start () {
-		// TEST CODE
-		 
-		goalPuyo = Instantiate(input);
-		generateGoalPuyo();
 
-		Debug.Log("color = " + color);
-		Debug.Log("size = " + goalPuyo.transform.localScale);
-		
+	public GoalPuyo(GameObject inputGameObject)
+	{
+		goalPuyo = inputGameObject;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		goalPuyo.GetComponent<Puyo>().ChangeColor(color);
+
+	public GameObject GetGoalPuyo()
+	{
+		generateGoalPuyo();
+		return goalPuyo;
 	}
 
 	void generateGoalPuyo()
@@ -36,16 +30,11 @@ public class GoalPuyo : MonoBehaviour {
 		int numberOfPuyoNeeded = Random.Range(minSize, maxSize + 1);
 		goalPuyo.transform.localScale = generateGoalPuyoSize(numberOfPuyoNeeded);
 		color = generateGoalPuyoColor(numberOfPuyoNeeded);
+		goalPuyo.GetComponent<Puyo>().ChangeColor(color);
 	}
 	
 	Color generateGoalPuyoColor(int numberOfPuyoNeeded)
 	{
-		/*Color goalPuyoColor = new Color();
-		
-		goalPuyoColor = new Color(Random.Range(0f, 1f),Random.Range(0f, 1f),Random.Range(0f, 1f));
-		goalPuyo.GetComponent<Renderer>().material.color = goalPuyoColor;
-		
-		return goalPuyoColor;*/
 		Color goalPuyoColor = new Color();
 
 		goalPuyoColor = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());

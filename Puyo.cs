@@ -28,9 +28,11 @@ public class Puyo : MonoBehaviour
 
 	public void ChangeColor(Color color)
 	{
-		var rend = GetComponent<Renderer>();
-		rend.material.SetColor("_BgColor", color);
-		rend.material.SetColor("_BoundColor", color);
+		var randomPuyo = GetComponent<RandomPuyo>();
+		var corp = randomPuyo.Corps;
+		
+		var rendCorp = corp.GetComponent<SpriteRenderer>();
+		rendCorp.color = color;
 	}
 	
 	// Update is called once per frame
