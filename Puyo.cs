@@ -1,4 +1,5 @@
-﻿using SeriousSwag3.Utils;
+﻿using System.Collections;
+using SeriousSwag3.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,9 @@ public class Puyo : MonoBehaviour
 	public char randomKey;
 
 	public Color colorValue;
+	public GameObject BlueFx;
+	public GameObject GreenFx;
+	public GameObject redFX;
 	
 	
 	// Use this for initialization
@@ -33,9 +37,31 @@ public class Puyo : MonoBehaviour
 	void Update () {
 		
 	}
-	
-	
-	
+
+	private void OnDestroy()
+	{
+		Vector3 position = transform.position;
+
+		GameObject fxToDestroy;
+		
+		if (colorValue == Color.green)
+		{
+			fxToDestroy = Instantiate(GreenFx, position, Quaternion.identity);
+		}
+		else if (colorValue == Color.blue)
+		{
+			fxToDestroy = Instantiate(BlueFx, position, Quaternion.identity);
+		}
+		else
+		{
+			fxToDestroy = Instantiate(redFX, position, Quaternion.identity);
+		}
+		
+
+		Destroy(fxToDestroy, 2);
+	}
+
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("Ground"))

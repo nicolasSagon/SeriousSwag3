@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 	private GameState currentState = GameState.INIT;
 	private bool isStart = false;
 	private bool isStop = false;
+	private bool isCompletlyStop = false;
 	private float _time;
 	private Color _color;
 	private GameObject _mergedPuyo;
@@ -26,7 +27,12 @@ public class GameManager : MonoBehaviour
 		FINISHED,
 		END
 	}
-	
+
+	private void Awake()
+	{
+		Application.targetFrameRate = 40;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -57,9 +63,14 @@ public class GameManager : MonoBehaviour
 				break;
 			case GameState.FINISHED:
 				currentState = GameState.END;
+				checkKeyboard();
 				Invoke("stopGame", 4);
 				break;
 			case GameState.END:
+				if (!isCompletlyStop)
+				{
+					checkKeyboard();
+				}
 				if (_mergedPuyo != null)
 				{
 					_mergedPuyo.GetComponent<Puyo>().ChangeColor(_color);	
@@ -76,6 +87,7 @@ public class GameManager : MonoBehaviour
 
 	void stopGame()
 	{
+		isCompletlyStop = true;
 		var puyoToInstance = mergePuyo(blobSpawner.getOnGroundList());
 		puyoToInstance.transform.position = new Vector3(9, -3, 0);
 		var rigidbody2D = puyoToInstance.GetComponent<Rigidbody2D>();
