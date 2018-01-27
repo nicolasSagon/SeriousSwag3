@@ -7,16 +7,15 @@ namespace SeriousSwag3.Utils
     {
 
         private static string BLUE = "#0000FF";
-        private static string YELLOW = "#FFFF00";
+        private static string GREEN = "#00FF00";
         private static string RED = "#FF0000";
 
         private static string[] listColors =
         {
             BLUE,
-            YELLOW,
+            GREEN,
             RED
         };
-
         public static string GetRandomColor()
         {
             var randomInt = new Random().Next(0, listColors.Length);

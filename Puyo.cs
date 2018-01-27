@@ -17,9 +17,9 @@ public class Puyo : MonoBehaviour
 	{
 		randomKey = KeyGenerator.GetRandomKey();
 		colorValue = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
+
+		setColor(colorValue);
 		
-		var rend = GetComponent<Renderer>();
-		rend.material.color = colorValue;
 		debugDisplay.text = randomKey.ToString();
 	}
 	
@@ -28,6 +28,12 @@ public class Puyo : MonoBehaviour
 		
 	}
 
+	public void setColor(Color color)
+	{
+		var rend = GetComponent<Renderer>();
+		rend.material.color = color;
+	}
+	
 	void OnTriggerEnter(Collider ground)
 	{
 		if (ground.CompareTag("Ground"))
