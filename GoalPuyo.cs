@@ -27,7 +27,7 @@ public class GoalPuyo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		goalPuyo.GetComponent<Puyo>().setColor(color);
+		goalPuyo.GetComponent<Puyo>().ChangeColor(color);
 	}
 
 	void generateGoalPuyo()

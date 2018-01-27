@@ -15,8 +15,7 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		blobSpawner = GetComponent<BlobSpawner>();
-		blobSpawner.isStart = true;
+		blobSpawner = GetComponent<BlobSpawner>();	
 	}
 
 	IEnumerator StartGame()
