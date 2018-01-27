@@ -18,25 +18,27 @@ public class Puyo : MonoBehaviour
 		randomKey = KeyGenerator.GetRandomKey();
 		colorValue = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
 
-		setColor(colorValue);
-		
+		ChangeColor(colorValue);
 		debugDisplay.text = randomKey.ToString();
+	}
+
+	public void ChangeColor(Color color)
+	{
+		var rend = GetComponent<Renderer>();
+		rend.material.SetColor("_BgColor", color);
+		rend.material.SetColor("_BoundColor", color);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-
-	public void setColor(Color color)
-	{
-		var rend = GetComponent<Renderer>();
-		rend.material.color = color;
-	}
 	
-	void OnTriggerEnter(Collider ground)
+	
+	
+	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (ground.CompareTag("Ground"))
+		if (other.CompareTag("Ground"))
 		{
 			isOnGround = true;	
 		}
