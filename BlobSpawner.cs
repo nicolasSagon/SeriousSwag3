@@ -10,6 +10,8 @@ public class BlobSpawner : MonoBehaviour {
 
 	private List<GameObject> puyoList;
 
+	public bool isStart;
+
 	// Use this for initialization
 	void Start () {
 		puyoList = new List<GameObject> ();
@@ -17,12 +19,15 @@ public class BlobSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		timeLeftBeforeSpawn -= Time.deltaTime;
+		if (isStart)
+		{
+			timeLeftBeforeSpawn -= Time.deltaTime;
 
-		if (timeLeftBeforeSpawn <= 0) {
-			var puyo = Instantiate(puyoGameObject, transform);
-			puyoList.Add (puyo);
-			timeLeftBeforeSpawn = timeBetweenSpawn;
+			if (timeLeftBeforeSpawn <= 0) {
+				var puyo = Instantiate(puyoGameObject, transform);
+				puyoList.Add (puyo);
+				timeLeftBeforeSpawn = timeBetweenSpawn;
+			}	
 		}
 	}
 
