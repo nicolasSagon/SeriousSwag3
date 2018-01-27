@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using SeriousSwag3.Utils;
+﻿using SeriousSwag3.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +14,9 @@ public class Puyo : MonoBehaviour
 	public GameObject BlueFx;
 	public GameObject GreenFx;
 	public GameObject redFX;
-	
-	
+	public GameObject Corps;
+    
+    
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,13 +30,11 @@ public class Puyo : MonoBehaviour
 	public void ChangeColor(Color color)
 	{
 		colorValue = color;
-		var randomPuyo = GetComponent<RandomPuyo>();
-		var corp = randomPuyo.Corps;
-		
-		var rendCorp = corp.GetComponent<SpriteRenderer>();
-		rendCorp.color = color;
+
+		var spriteRanderer = Corps.GetComponent<SpriteRenderer> ();
+		spriteRanderer.color = color;
 	}
-	
+    
 	// Update is called once per frame
 	void Update () {
 		if (isOnGround || isSpecialPuyo)
@@ -50,7 +48,7 @@ public class Puyo : MonoBehaviour
 		Vector3 position = transform.position;
 
 		GameObject fxToDestroy;
-		
+        
 		if (colorValue == Color.green)
 		{
 			fxToDestroy = Instantiate(GreenFx, position, Quaternion.identity);
@@ -63,7 +61,7 @@ public class Puyo : MonoBehaviour
 		{
 			fxToDestroy = Instantiate(redFX, position, Quaternion.identity);
 		}
-		
+        
 
 		Destroy(fxToDestroy, 2);
 	}
@@ -73,7 +71,7 @@ public class Puyo : MonoBehaviour
 	{
 		if (other.CompareTag("Ground"))
 		{
-			isOnGround = true;	
+			isOnGround = true;    
 		}
 	}
 }
