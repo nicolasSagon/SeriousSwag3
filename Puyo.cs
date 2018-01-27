@@ -11,7 +11,7 @@ public class Puyo : MonoBehaviour
 
 	public char randomKey;
 
-	private Color colorValue;
+	public Color colorValue;
 	
 	
 	// Use this for initialization
