@@ -7,7 +7,7 @@ public class Puyo : MonoBehaviour
 
 	public Material Material;
 	public Text debugDisplay;
-	private bool isOnGround;
+	public bool isOnGround;
 
 	private char randomKey
 	{
