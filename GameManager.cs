@@ -17,21 +17,26 @@ public class GameManager : MonoBehaviour
 		foreach (char c in Input.inputString) {
 			if (Input.anyKeyDown && c >='a' && c <='z')
 			{
-				var puyoList = blobSpawner.GetPuyoList();
-				if (puyoList != null)
-				{
-					var puyo = puyoList.Find(e =>
-					{
-						var p = e.GetComponent<Puyo>();
-						return p.randomKey == c;
-					});
+				removePuyo(c);
+			}
+		}
+	}
 
-					if (puyo != null)
-					{
-						Destroy(puyo);
-						puyoList.Remove(puyo);
-					}
-				}
+	void removePuyo(char c)
+	{
+		var puyoList = blobSpawner.GetPuyoList();
+		if (puyoList != null)
+		{
+			var puyo = puyoList.Find(e =>
+			{
+				var p = e.GetComponent<Puyo>();
+				return p.randomKey == c && !p.isOnGround;
+			});
+
+			if (puyo != null)
+			{
+				Destroy(puyo);
+				puyoList.Remove(puyo);
 			}
 		}
 	}
