@@ -70,9 +70,4 @@ public class MergePuyo : MonoBehaviour
 		
 		return mergedPuyoSize;
 	}
-
-	void destroyPuyoOnGroundList(List<GameObject> puyoOnGroundList)
-	{
-		puyoOnGroundList.Clear();
-	}
 }
