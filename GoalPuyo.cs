@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 public class GoalPuyo{
 
 	public GameObject goalPuyo;
-	public int minSize = 4;
-	public int maxSize = 16;
+	public int minSizeSquare = 4;
+	public int maxSizeSquare = 16;
 	
 	public GameObject input;
 	public Color color;
@@ -27,10 +27,13 @@ public class GoalPuyo{
 
 	void generateGoalPuyo()
 	{
-		int numberOfPuyoNeeded = Random.Range(minSize, maxSize + 1);
+		int numberOfPuyoNeeded = Random.Range(minSizeSquare, maxSizeSquare + 1);
+		Debug.Log(numberOfPuyoNeeded);
 		goalPuyo.transform.localScale = generateGoalPuyoSize(numberOfPuyoNeeded);
 		color = generateGoalPuyoColor(numberOfPuyoNeeded);
-		goalPuyo.GetComponent<Puyo>().ChangeColor(color);
+		var puyoScript = goalPuyo.GetComponent<Puyo>();
+		puyoScript.ChangeColor(color);
+		puyoScript.isSpecialPuyo = true;
 	}
 	
 	Color generateGoalPuyoColor(int numberOfPuyoNeeded)

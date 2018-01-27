@@ -7,6 +7,7 @@ public class Puyo : MonoBehaviour
 {
 	public Text debugDisplay;
 	public bool isOnGround;
+	public bool isSpecialPuyo;
 
 	public char randomKey;
 
@@ -28,6 +29,7 @@ public class Puyo : MonoBehaviour
 
 	public void ChangeColor(Color color)
 	{
+		colorValue = color;
 		var randomPuyo = GetComponent<RandomPuyo>();
 		var corp = randomPuyo.Corps;
 		
@@ -37,7 +39,10 @@ public class Puyo : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (isOnGround || isSpecialPuyo)
+		{
+			debugDisplay.text = "";
+		}
 	}
 
 	private void OnDestroy()

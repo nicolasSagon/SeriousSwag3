@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviour
 	private bool isStop = false;
 	private bool isCompletlyStop = false;
 	private float _time;
-	private Color _color;
+	private Color _colorMerged;
+	private Color _colorGoal;
 	private GameObject _mergedPuyo;
 	private GameObject _goalPuyo;
 
@@ -28,7 +29,8 @@ public class GameManager : MonoBehaviour
 		START,
 		FINISHED,
 		END,
-		SCORE
+		SCORE,
+		TRUE_END
 	}
 
 	private void Awake()
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
 	{
 		var goalPuyoFactory = new GoalPuyo(Instantiate(blobSpawner.puyoGameObject));
 		_goalPuyo = goalPuyoFactory.GetGoalPuyo();
+		_colorGoal = goalPuyoFactory.color;
 		_goalPuyo.transform.position = new Vector3(-9, -2, 0);
 		currentState = GameState.INIT_COUNTDOWN;
 	}
@@ -54,7 +57,17 @@ public class GameManager : MonoBehaviour
 	void Update () {
 		if (_mergedPuyo != null)
 		{
-			_mergedPuyo.GetComponent<Puyo>().ChangeColor(_color);
+			var puyoScript = _mergedPuyo.GetComponent<Puyo>();
+			puyoScript.ChangeColor(_colorMerged);
+			puyoScript.isSpecialPuyo = true;
+
+		}
+		if (_goalPuyo != null)
+		{
+			var puyoScript = _goalPuyo.GetComponent<Puyo>();
+			puyoScript.ChangeColor(_colorGoal);
+			puyoScript.isSpecialPuyo = true;
+
 		}
 		if (!isStart)
 		{
@@ -95,9 +108,22 @@ public class GameManager : MonoBehaviour
 				}
 				break;
 			case GameState.SCORE:
-				displayMessage("YOU HAVE WIN WITH 100% GG");
+				displayScore();
+				Debug.Log("mergedcolor: " + _mergedPuyo.GetComponent<Puyo>().colorValue);
+				Debug.Log("mergedsize: " + _mergedPuyo.transform.localScale);
+				Debug.Log("goalcolor: " + _goalPuyo.GetComponent<Puyo>().colorValue);
+				Debug.Log("goalsize: " + _goalPuyo.transform.localScale);
+				currentState = GameState.TRUE_END;
+				break;
+			case GameState.TRUE_END:
 				break;
 		}
+	}
+
+	private void displayScore()
+	{
+		var score = ScoreCalculator.ScoreCalc(_goalPuyo, _mergedPuyo);
+		displayMessage(score + "%");
 	}
 
 	void startGame()
@@ -170,7 +196,7 @@ public class GameManager : MonoBehaviour
 	{
 		_mergedPuyo = Instantiate(blobSpawner.puyoGameObject);
 		_mergedPuyo.transform.localScale = mergeSize(puyoOnGroundList);
-		_color = mergeColor(puyoOnGroundList);
+		_colorMerged = mergeColor(puyoOnGroundList);
 	}
 	
 	Color mergeColor(List<GameObject> puyoOnGroundList)
