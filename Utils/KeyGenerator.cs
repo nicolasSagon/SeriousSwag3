@@ -1,4 +1,5 @@
 ﻿using System;
+using Random = UnityEngine.Random;
 
 namespace SeriousSwag3.Utils
 {
@@ -6,10 +7,10 @@ namespace SeriousSwag3.Utils
     {
         public static char GetRandomKey()
         {
-            var charSet = "abcdefghijkmnopqrstuvwxyz";
+            var charSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var chars = charSet.ToCharArray();
 
-            var randomNumber = new Random().Next(0, chars.Length);
+            var randomNumber = Random.Range(0, charSet.Length);
 
             return chars[randomNumber];
         }

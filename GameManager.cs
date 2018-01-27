@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 			var puyo = puyoList.Find(e =>
 			{
 				var p = e.GetComponent<Puyo>();
-				return p.randomKey == c && !p.isOnGround;
+				return p.randomKey == char.ToUpper(c) && !p.isOnGround;
 			});
 
 			if (puyo != null)

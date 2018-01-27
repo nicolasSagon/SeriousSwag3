@@ -19,7 +19,7 @@ namespace SeriousSwag3.Utils
 
         public static string GetRandomColor()
         {
-            var randomInt = new Random().Next(0, listColors.Length);
+            var randomInt = UnityEngine.Random.Range(0, listColors.Length);
             return listColors[randomInt];
 
         }
