@@ -9,20 +9,17 @@ public class Puyo : MonoBehaviour
 	public Text debugDisplay;
 	public bool isOnGround;
 
-	private char randomKey
-	{
-		get { return KeyGenerator.GetRandomKey(); }
-	}
+	public char randomKey;
 
-	private Color colorValue
-	{
-		get { return ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor()); }
-	}
+	private Color colorValue;
 	
 	
 	// Use this for initialization
 	void Start ()
 	{
+		randomKey = KeyGenerator.GetRandomKey();
+		colorValue = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
+		
 		Material.color = colorValue;
 		debugDisplay.text = randomKey.ToString();
 	}
