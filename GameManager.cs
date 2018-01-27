@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
 	public Text TimerDisplay;
 	public int secondBeforeStartGame = 5;
 	public int secondBeforeGameStop = 15;
+	public GameObject Menu;
+	public Button RetryButton;
+	public Button QuitButton;
 		 
 	private BlobSpawner blobSpawner;
 
@@ -35,13 +39,28 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-		Application.targetFrameRate = 40;
+		Application.targetFrameRate = 60;
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		blobSpawner = GetComponent<BlobSpawner>();	
+		blobSpawner = GetComponent<BlobSpawner>();
+		RetryButton.onClick.AddListener(retryGame);
+		QuitButton.onClick.AddListener(returnToMenu);
+		
+		Menu.SetActive(false);
+		
+	}
+
+	private void retryGame()
+	{
+		SceneManager.LoadScene(1, LoadSceneMode.Single);
+	}
+
+	private void returnToMenu()
+	{
+		SceneManager.LoadScene(0, LoadSceneMode.Single);
 	}
 
 	private void chooseGoalPuyoAndSpawn()
@@ -112,6 +131,7 @@ public class GameManager : MonoBehaviour
 				currentState = GameState.TRUE_END;
 				break;
 			case GameState.TRUE_END:
+				Menu.SetActive(true);
 				break;
 		}
 	}
