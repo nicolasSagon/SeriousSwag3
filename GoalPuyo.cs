@@ -55,6 +55,8 @@ public class GoalPuyo : MonoBehaviour {
 			goalPuyoColor += ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
 		}
 
+		goalPuyoColor /= numberOfPuyoNeeded;
+		
 		return goalPuyoColor;
 
 	}
