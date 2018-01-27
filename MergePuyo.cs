@@ -28,6 +28,7 @@ public class MergePuyo : MonoBehaviour
 		puyoList.Add(puyo2);
 
 		mergedPuyo = mergePuyo(puyoList);
+		destroyPuyoOnGroundList();
 
 		Debug.Log(mergedPuyo.ToString());
 */ 
@@ -68,5 +69,10 @@ public class MergePuyo : MonoBehaviour
 		}
 		
 		return mergedPuyoSize;
+	}
+
+	void destroyPuyoOnGroundList(List<GameObject> puyoOnGroundList)
+	{
+		puyoOnGroundList.Clear();
 	}
 }
