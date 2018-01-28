@@ -15,11 +15,14 @@ public class Puyo : MonoBehaviour
 	public GameObject GreenFx;
 	public GameObject redFX;
 	public GameObject Corps;
+
+	private GameSoundManager _gameSoundManager;
     
     
 	// Use this for initialization
 	void Start ()
 	{
+		_gameSoundManager = FindObjectOfType<GameSoundManager>();
 		randomKey = KeyGenerator.GetRandomKey();
 		colorValue = ColorGenerator.GetColorFromHex(ColorGenerator.GetRandomColor());
 
@@ -61,8 +64,9 @@ public class Puyo : MonoBehaviour
 		{
 			fxToDestroy = Instantiate(redFX, position, Quaternion.identity);
 		}
-        
 
+		_gameSoundManager.callDeathSound();
+		
 		Destroy(fxToDestroy, 2);
 	}
 
@@ -71,6 +75,7 @@ public class Puyo : MonoBehaviour
 	{
 		if (other.CompareTag("Ground"))
 		{
+			_gameSoundManager.callGroundSound();
 			isOnGround = true;    
 		}
 	}
